@@ -14,9 +14,9 @@ class Tower:
         for i in range(self.total_rings):
             self.pole['A'].insert(0,i+1) #insert(index to be inserted at, element)
             (self.original).insert(0,i+1)
+            
         self.display()
             
-
     def display(self) -> None:
         print()
         print('A ', self.pole['A'])
@@ -25,15 +25,12 @@ class Tower:
         print()
 
     def move_ring(self, move_from, move_to) -> str:
-            """move a ring from one position to another with an origin and a destination"""
-
-            self.move_from = move_from
-            self.move_to = move_to
+            """Move one ring from one position to another"""
 
             if len(self.pole[move_from]) == 0:
                 ring = self.pole[move_from][0]
             else:
-                ring = self.pole[self.move_from][-1]
+                ring = self.pole[move_from][-1]
 
             # Exceptions
             if len(self.pole[move_to])!= 0 and ring > self.pole[move_to][-1]:
@@ -42,32 +39,31 @@ class Tower:
                 self.pole[move_from].pop()
                 self.pole[move_to].append(ring)
 
-    def autoplay(self, rings: int, source: str, destination: str, auxilary: str) -> None:
-        self.rings = rings
-        self.source = source
-        self.destination = destination
-        self.auxilary = auxilary
-
-        if rings == 1:
+    def autoplay(self, biggest_ring: int, source: str, destination: str, auxilary: str) -> None:
+        """Automatically solve the puzzle + print out each step taken to solve the puzzle"""
+        
+        if biggest_ring == self.pole[source][-1]: # if the biggest ring is the last ring on the source pole
             self.move_ring(source, destination)
             self.display()
         else:
-            index = self.pole[source].index(rings)
-            top_disk = self.pole[source][index + 1]
+            index = self.pole[source].index(biggest_ring) # .index(a) returns the index of a within a list
+            top_ring: int = self.pole[source][index + 1] # top_ring = The ring on top of biggest_ring
             
-            self.autoplay(top_disk, source, auxilary, destination)
+            self.autoplay(top_ring, source, auxilary, destination) # destination is changed to auxilary pole
             self.move_ring(source, destination)
             self.display()
-            self.autoplay(top_disk, auxilary, destination, source)
+            self.autoplay(top_ring, auxilary, destination, source) # auxilary pole is changed to source pole
 
 
 
     def execute(self) -> str:
-        """Initiate the game """
+        """Initiate the game"""
+
         if input("Do you want to help? (Y/N) ") == "Y":
                 self.autoplay(self.total_rings,'A', 'C', 'B')
         else:
             pass
+
         while True:
             if self.original == self.pole['C']:
                 print("\n"'Congratulations! You solved it!'"\n")
