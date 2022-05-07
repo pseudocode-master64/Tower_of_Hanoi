@@ -2,7 +2,7 @@
 
 This is my first solo project...🥳
 
-**Please** do send any types of pull requests and issues if you see any room for improvement and bugs within my amateur program! I can't wait to see your feedbacks!
+**Please do send any types of pull requests and issues if you see any room for improvement and bugs within my amateur program! I can't wait to see your feedbacks!**
 
 ## What is Tower of Hanoi? 
 
