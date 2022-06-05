@@ -41,7 +41,8 @@ class Tower:
             # Exceptions
             if len(self.pole[move_to])!= 0 and ring > self.pole[move_to][-1]:
                 print("\n"'##### The ring you want to move is BIGGER than the ring on the desination pole, try again #####')
-
+                return
+                
             self.pole[move_from].pop()
             self.pole[move_to].append(ring)
             self.count += 1
